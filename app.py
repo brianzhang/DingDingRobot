@@ -13,7 +13,6 @@ settings = {
 
 def send_dingding_msg(text='', title=None, is_markdown=False):
     # DINGDING_ROBOT_URL
-    print(is_markdown)
     data = {
         "msgtype": "text",
         "text": {
@@ -42,5 +41,8 @@ if __name__ == '__main__':
   res = requests.get(settings['BING_IMG']).json()
   
   img = 'http://s.cn.bing.net%s' % res['images'][0]['url']
-
-  send_dingding_msg(u"""#### 任务进度关注 \n > 各位亲，下班时间快到了哦 \n\n > ![screenshot](%s)\n > ###### 快来更新一下 [redmine](http://redmine.oss.yunsom.cn/projects)的进度 \n""" % img, u'任务进度更新', True)
+  if len(sys.argv) >= 2:
+    print(sys.argv)
+    send_dingding_msg(sys.argv[1], sys.argv[2], False)
+  else:
+    send_dingding_msg(u"""#### 任务进度关注 \n > 各位亲，下班时间快到了哦 \n\n > ![screenshot](%s)\n > ###### 快来更新一下 [redmine](http://redmine.oss.yunsom.cn/projects)的进度 \n""" % img, u'任务进度更新', True)
